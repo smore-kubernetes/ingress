@@ -14,6 +14,13 @@ spec:
               name: grafana
               port: 
                 name: http-grafana
+        - path: /graphite
+          pathType: Prefix
+          backend:
+            service:
+              name: graphite
+              port: 
+                name: graphite-ui
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
