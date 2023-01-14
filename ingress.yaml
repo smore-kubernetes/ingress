@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-grafana
+  name: ingress-k3os-6802
 spec:
   rules:
   - host: k3os-6802
@@ -32,12 +32,32 @@ spec:
       - /grafana
 ---
 apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-graphite
+spec:
+  stripPrefix:
+    prefixes:
+      - /graphite
+---
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ingressroute
+  name: ingress-route-grafana
 spec:
 # more fields...
   routes:
     # more fields...
     middlewares:
       - name: strip-grafana
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingress-route-graphite
+spec:
+# more fields...
+  routes:
+    # more fields...
+    middlewares:
+      - name: strip-graphite
