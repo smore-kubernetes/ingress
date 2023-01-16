@@ -21,3 +21,10 @@ spec:
               name: graphite
               port: 
                 name: graphite-ui
+        - path: /prometheus
+          pathType: Prefix
+          backend:
+            service:
+              name: prometheus
+              port: 
+                name: http-prometheus
