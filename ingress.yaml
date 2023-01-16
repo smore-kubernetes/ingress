@@ -14,50 +14,10 @@ spec:
               name: grafana
               port: 
                 name: http-grafana
-        - path: /graphite
+        - path: /
           pathType: Prefix
           backend:
             service:
               name: graphite
               port: 
                 name: graphite-ui
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-grafana
-spec:
-  stripPrefix:
-    prefixes:
-      - /grafana
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-graphite
-spec:
-  stripPrefix:
-    prefixes:
-      - /graphite
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: ingress-route-grafana
-spec:
-# more fields...
-  routes:
-    # more fields...
-    middlewares:
-      - name: strip-grafana
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: ingress-route-graphite
-spec:
-# more fields...
-  routes:
-    # more fields...
-    middlewares:
-      - name: strip-graphite
