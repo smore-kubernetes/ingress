@@ -28,3 +28,10 @@ spec:
               name: prometheus
               port: 
                 name: http-prometheus
+        - path: /truecommand
+          pathType: Prefix
+          backend:
+            service:
+              name: truecommand
+              port: 
+                name: http-tcmd
