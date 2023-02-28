@@ -35,3 +35,21 @@ spec:
               name: truecommand
               port: 
                 name: http-tcmd
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud-k3os-6802
+  namespace: nextcloud
+spec:
+  rules:
+  - host: k3os-6802
+    http:
+      paths:
+        - path: /nextcloud
+          pathType: Prefix
+          backend:
+            service:
+              name: nextcloud
+              port: 
+                name: http-ncloud
