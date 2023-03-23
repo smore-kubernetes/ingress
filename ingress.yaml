@@ -14,7 +14,7 @@ spec:
               name: grafana
               port: 
                 name: http-grafana
-        - path: /
+        - path: /graphite
           pathType: Prefix
           backend:
             service:
@@ -28,25 +28,20 @@ spec:
               name: prometheus
               port: 
                 name: http-prometheus
-        - path: /truecommand
-          pathType: Prefix
-          backend:
-            service:
-              name: truecommand
-              port: 
-                name: http-tcmd
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nextcloud-k3os-6802
   namespace: nextcloud
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
   - host: k3os-6802
     http:
       paths:
-        - path: /nextcloud
+        - path: /nextcloud/*
           pathType: Prefix
           backend:
             service:
